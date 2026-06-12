@@ -1,11 +1,588 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<title></title>
-	</head>
-	<body>
-		<p>这里是我的个人作品集网站</p>
-		<img src="img/test123.jpg" >
-	</body>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>林语墨 | 设计师作品集</title>
+    <!-- Google Fonts & 简单重置样式 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (免费图标库) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fafafc;
+            color: #1a1a2c;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #2b2d42, #4a4e69);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #2d2f3b;
+            transition: color 0.2s;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            color: #6c5ce7;
+        }
+
+        /* 按钮 & 通用 */
+        .btn {
+            display: inline-block;
+            background: #1e1e2f;
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.25s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #1e1e2f;
+            color: #1e1e2f;
+        }
+
+        .btn-outline:hover {
+            background: #1e1e2f;
+            color: white;
+        }
+
+        /* Hero 区域 */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2.5rem;
+            padding: 4rem 0 3rem 0;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-badge {
+            background: #e9ecef;
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #2b2d42;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(120deg, #6c5ce7, #a363d9);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #4a4e69;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-avatar {
+            flex: 0.8;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 头像 SVG (矢量图/图片) */
+        .avatar-svg {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
+            background: #ffffff;
+        }
+
+        /* 作品集网格 */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .section-sub {
+            color: #6c6f8a;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+            border-left: 3px solid #6c5ce7;
+            padding-left: 1rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: #ffffff;
+            border-radius: 28px;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 40px -12px rgba(0,0,0,0.15);
+        }
+
+        /* 作品图片容器 — 使用内嵌矢量插图风格 */
+        .project-image {
+            width: 100%;
+            background-color: #f0f0f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .project-image svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover .project-image svg {
+            transform: scale(1.02);
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .project-category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6c5ce7;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .project-info p {
+            color: #4a4e69;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* 关于区域 */
+        .about-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            background: #f1f0f5;
+            border-radius: 2rem;
+            padding: 2.5rem;
+            margin-top: 1rem;
+        }
+
+        .about-text {
+            flex: 2;
+        }
+
+        .about-text h3 {
+            font-size: 1.7rem;
+            margin-bottom: 1rem;
+        }
+
+        .skills {
+            flex: 1;
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .skills h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid #6c5ce7;
+            padding-left: 0.8rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .skill-tags span {
+            background: #e9e9f0;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* 联系区域 */
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            justify-content: center;
+            margin: 2rem 0 1rem;
+        }
+
+        .contact-item {
+            background: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #1e1e2f;
+            border: 1px solid #e2e2ea;
+        }
+
+        .contact-item i {
+            font-size: 1.2rem;
+            color: #6c5ce7;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-3px);
+            border-color: #6c5ce7;
+            box-shadow: 0 12px 18px -8px rgba(108,92,231,0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid #e9e9ef;
+            margin-top: 1rem;
+            color: #6c6f8a;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 780px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .section-title {
+                font-size: 1.9rem;
+            }
+            .about-wrap {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo">YUMO.LIN</div>
+        <ul class="nav-links">
+            <li><a href="#work">作品</a></li>
+            <li><a href="#about">关于</a></li>
+            <li><a href="#contact">联系</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero 个人介绍区 -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-palette"></i> 视觉设计师 / 艺术指导
+            </div>
+            <h1>创造有意义的 <span class="hero-highlight">设计对话</span></h1>
+            <p>林语墨 — 专注于品牌视觉、数字产品与跨媒介创意，用设计讲述打动人心的故事。</p>
+            <a href="#work" class="btn">探索作品 <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="hero-avatar">
+            <!-- 抽象矢量肖像设计 (图片形式展示) -->
+            <svg class="avatar-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="100" r="95" fill="#F1F0F5" stroke="#6C5CE7" stroke-width="2"/>
+                <circle cx="100" cy="85" r="42" fill="#D9D2FF" stroke="#4A4E69" stroke-width="1.5" stroke-dasharray="3 3"/>
+                <circle cx="75" cy="78" r="5" fill="#2D2F3B"/>
+                <circle cx="125" cy="78" r="5" fill="#2D2F3B"/>
+                <path d="M80 110 Q100 130, 120 110" stroke="#6C5CE7" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M100 130 L100 160" stroke="#A363D9" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="100" cy="170" r="6" fill="#6C5CE7"/>
+                <rect x="92" y="155" width="16" height="12" rx="3" fill="#E8D8FF"/>
+                <path d="M45 140 L30 155 L45 170" stroke="#6C5CE7" stroke-width="2" fill="none"/>
+                <path d="M155 140 L170 155 L155 170" stroke="#6C5CE7" stroke-width="2" fill="none"/>
+                <text x="100" y="190" text-anchor="middle" font-size="8" fill="#4A4E69" font-weight="bold">✧ DESIGNER ✧</text>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 作品精选集 (图片+文字) -->
+    <section id="work" class="section">
+        <h2 class="section-title">精选项目 · 视觉叙事</h2>
+        <div class="section-sub">从品牌识别到数字体验，每个项目都是一段独特的创作旅程</div>
+        
+        <div class="projects-grid">
+            <!-- 卡片 1 : 品牌设计 + 矢量插图 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="240" fill="#f0eef9" rx="12" ry="12"/>
+                        <circle cx="120" cy="120" r="50" fill="#6C5CE7" opacity="0.7"/>
+                        <circle cx="260" cy="120" r="40" fill="#A363D9" opacity="0.8"/>
+                        <path d="M80 180 L200 80 L320 180" fill="#E2D6FF" stroke="#6C5CE7" stroke-width="2"/>
+                        <text x="200" y="200" text-anchor="middle" font-size="18" fill="#2D2F3B" font-weight="bold" font-family="Inter, sans-serif">NEURA · 品牌重塑</text>
+                        <text x="200" y="222" text-anchor="middle" font-size="11" fill="#4A4E69">极简主义 × 动态视觉</text>
+                    </svg>
+                </div>
+                <div class="project-info">
+                    <div class="project-category">品牌设计</div>
+                    <h3>NEURA 科技品牌重塑</h3>
+                    <p>完整视觉识别系统，包含标志升级、色彩规范与动态衍生，帮助品牌在AI时代建立先锋感知。</p>
+                </div>
+            </div>
+
+            <!-- 卡片 2 : 移动APP界面 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="240" fill="#F9F5FF" rx="12" ry="12"/>
+                        <rect x="60" y="40" width="100" height="180" rx="20" fill="#ffffff" stroke="#C7B9FF" stroke-width="2"/>
+                        <rect x="230" y="50" width="110" height="160" rx="18" fill="#E7DFFF" stroke="#6C5CE7" stroke-width="1.5"/>
+                        <circle cx="110" cy="80" r="12" fill="#6C5CE7"/>
+                        <rect x="85" y="110" width="50" height="8" rx="4" fill="#A363D9"/>
+                        <rect x="85" y="128" width="70" height="6" rx="3" fill="#D4C9FF"/>
+                        <rect x="85" y="144" width="60" height="6" rx="3" fill="#D4C9FF"/>
+                        <path d="M270 90 L290 90 L280 70 Z" fill="#6C5CE7"/>
+                        <text x="286" y="115" font-size="10" fill="#2D2F3B">📱</text>
+                        <text x="180" y="215" text-anchor="middle" font-size="14" font-weight="bold" fill="#1E1E2F">EcoNest 智能家居</text>
+                    </svg>
+                </div>
+                <div class="project-info">
+                    <div class="project-category">UI/UX 设计</div>
+                    <h3>EcoNest 智能家居APP</h3>
+                    <p>为可持续生活打造的交互系统，流畅的动效与直觉操作，荣获2024 iF设计奖入围。</p>
+                </div>
+            </div>
+
+            <!-- 卡片 3 : 包装设计 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="240" fill="#EDF2F7" rx="12" ry="12"/>
+                        <rect x="100" y="60" width="80" height="120" fill="#F2E9FE" stroke="#6C5CE7" stroke-width="2"/>
+                        <polygon points="140,40 180,60 100,60" fill="#A363D9"/>
+                        <line x1="140" y1="90" x2="140" y2="150" stroke="#6C5CE7" stroke-width="2" stroke-dasharray="3 3"/>
+                        <rect x="115" y="160" width="50" height="10" fill="#C2B0FF" rx="3"/>
+                        <circle cx="220" cy="130" r="35" fill="#D9C9FF" stroke="#6C5CE7" stroke-width="1.5"/>
+                        <path d="M210 125 L225 125 L217 110 Z" fill="#6C5CE7"/>
+                        <text x="220" y="190" text-anchor="middle" font-size="11" fill="#4A4E69">有机茶礼盒 · 限量版</text>
+                    </svg>
+                </div>
+                <div class="project-info">
+                    <div class="project-category">包装设计</div>
+                    <h3>植本 · 东方茶礼盒</h3>
+                    <p>环保材质与诗意插画融合，打造充满仪式感的开箱体验，提升品牌溢价40%。</p>
+                </div>
+            </div>
+
+            <!-- 卡片 4 : 插画设计 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="240" fill="#FFF3E6" rx="12" ry="12"/>
+                        <path d="M120 100 L200 60 L280 100 L280 160 L200 200 L120 160 Z" fill="#FFE0C4" stroke="#E6A177" stroke-width="2"/>
+                        <circle cx="200" cy="120" r="20" fill="#FFB347"/>
+                        <circle cx="188" cy="110" r="2" fill="#2D2F3B"/>
+                        <circle cx="212" cy="110" r="2" fill="#2D2F3B"/>
+                        <path d="M193 128 Q200 136, 207 128" stroke="#A363D9" fill="none" stroke-width="2"/>
+                        <text x="200" y="185" text-anchor="middle" font-size="13" font-weight="bold" fill="#9B6A3F">「森林绮想」系列</text>
+                    </svg>
+                </div>
+                <div class="project-info">
+                    <div class="project-category">插画 / 艺术</div>
+                    <h3>森林绮想 · 数字插画</h3>
+                    <p>系列插画探索自然与神秘主义，用于展览与文创衍生品开发，受到插画年鉴收录。</p>
+                </div>
+            </div>
+
+            <!-- 卡片 5 : 网页设计 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="240" fill="#E5F0FF" rx="12" ry="12"/>
+                        <rect x="60" y="50" width="280" height="140" fill="white" rx="16" stroke="#6C5CE7" stroke-width="1.5"/>
+                        <circle cx="90" cy="80" r="8" fill="#6C5CE7"/>
+                        <rect x="110" y="74" width="120" height="10" rx="5" fill="#A8A6DE"/>
+                        <rect x="70" y="110" width="250" height="8" rx="4" fill="#C7D8FF"/>
+                        <rect x="70" y="130" width="200" height="8" rx="4" fill="#DDE6FF"/>
+                        <rect x="70" y="150" width="180" height="8" rx="4" fill="#DDE6FF"/>
+                        <text x="200" y="215" text-anchor="middle" font-size="13" font-weight="bold">STUDIO GALLERY 官网</text>
+                    </svg>
+                </div>
+                <div class="project-info">
+                    <div class="project-category">网页设计</div>
+                    <h3>ArtFlow 创意工作室</h3>
+                    <p>沉浸式全屏滚动体验，突出作品展示的呼吸感，CMS集成提升管理效率。</p>
+                </div>
+            </div>
+
+            <!-- 卡片 6 : 动态图形概念 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="240" fill="#F1E4F0" rx="12" ry="12"/>
+                        <rect x="70" y="70" width="260" height="90" fill="#FFFFFF" rx="12" stroke="#A363D9" stroke-width="2"/>
+                        <path d="M120 115 L160 90 L200 130 L240 85 L280 120 L280 135 L120 135 Z" fill="#D9C6FF" opacity="0.9"/>
+                        <circle cx="180" cy="115" r="12" fill="#6C5CE7"/>
+                        <circle cx="220" cy="105" r="8" fill="#FFD966"/>
+                        <text x="200" y="195" text-anchor="middle" font-size="13" font-weight="bold">「引力场」MG动画</text>
+                    </svg>
+                </div>
+                <div class="project-info">
+                    <div class="project-category">动态设计</div>
+                    <h3>引力场 · 概念宣传片</h3>
+                    <p>抽象图形与节奏音效结合的动态影像，为科技峰会开幕式定制视觉开场。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于设计师区域 -->
+    <section id="about" class="section">
+        <div class="about-wrap">
+            <div class="about-text">
+                <h3>✧ 以设计驱动情感链接 ✧</h3>
+                <p style="margin-bottom: 1rem;">林语墨（Yumo Lin），跨领域视觉设计师，毕业于中央美术学院设计学院，后于米兰理工大学深造。拥有8年品牌与数字设计经验，作品曾多次入围BEDA、D&AD Awards。</p>
+                <p style="margin-bottom: 1rem;">我相信设计不仅是审美的呈现，更是解决问题的智慧。从策略到执行，我致力于在商业价值与美学表达间建立平衡，创造经得起时间检验的作品。</p>
+                <p><i class="fas fa-quote-left" style="color:#6C5CE7; margin-right: 6px;"></i> 设计是可见的沟通，更是无形的情感共鸣。</p>
+            </div>
+            <div class="skills">
+                <h4><i class="fas fa-cog"></i> 核心能力</h4>
+                <div class="skill-tags">
+                    <span>品牌策略</span><span>UI/UX设计</span><span>插画</span>
+                    <span>动效设计</span><span>Figma</span><span>Adobe全家桶</span>
+                    <span>Blender</span><span>设计思维</span><span>艺术指导</span>
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <h4><i class="fas fa-language"></i> 语言</h4>
+                    <div class="skill-tags">
+                        <span>中文 (母语)</span><span>英文 (专业)</span><span>意大利语 (基础)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系区域 展示更多文字+图标 -->
+    <section id="contact" class="section" style="padding-bottom: 2rem;">
+        <h2 class="section-title" style="text-align: center;">一起创造</h2>
+        <div class="section-sub" style="text-align: center; border-left: none; padding-left: 0;">开放合作 | 设计咨询 | 创意分享</div>
+        <div class="contact-links">
+            <a href="#" class="contact-item"><i class="fas fa-envelope"></i> yumo.lin@studio.com</a>
+            <a href="#" class="contact-item"><i class="fab fa-instagram"></i> @yumo.design</a>
+            <a href="#" class="contact-item"><i class="fab fa-behance"></i> Behance 作品集</a>
+            <a href="#" class="contact-item"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+        </div>
+        <div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #6c6f8a;">
+            <i class="fas fa-map-marker-alt"></i> 现居上海 / 全球远程合作
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 林语墨 · 设计师作品集 | 所有设计概念仅为展示，保留创意版权 <i class="fas fa-heart" style="color:#6C5CE7;"></i></p>
+    </footer>
+</div>
+</body>
 </html>
